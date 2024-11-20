@@ -1,0 +1,122 @@
+/* Sidebar */
+.sidebar {
+  background-color: #1d66ba; /* bg-dark-purple */
+  height: 100vh; /* h-screen */
+  padding: 2rem 1.25rem 0; /* p-5 pt-8 */
+  position: relative; /* Para controle do posicionamento do ícone */
+  transition: width 0.3s ease-in-out;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
+}
+
+/* Ícone de controle de abrir/fechar */
+.sidebar .control-icon {
+  position: absolute;
+  cursor: pointer;
+  top: 2.25rem;
+  background-color: #ffffff;
+  right: -0.75rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 7px;
+  transition: transform 0.3s ease-in-out; /* Transição de rotação */
+}
+
+.sidebar .control-icon.rotated {
+  transform: rotate(180deg); /* Quando a barra estiver fechada, gira */
+}
+
+/* Logo e título */
+.sidebar .logo-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.logo-container {
+    width: 50px;
+}
+
+.dashboard-title {
+    font-weight: bold;
+}
+
+.sidebar .logo {
+  cursor: pointer;
+  transition: transform 0.5s ease; 
+  width: 70px;
+  border-radius: 50%;
+  border: 5px solid #c9c7c7;
+}
+.sidebar .logo.open {
+  transform: rotate(360deg); 
+  width: 70px;
+    border-radius: 50%;
+
+}
+
+.sidebar h1 {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.sidebar h1.hidden {
+  transform: scale(0);
+  opacity: 0;
+}
+
+/* Menu */
+.sidebar ul {
+  padding-top: 4.5rem;
+}
+
+.sidebar ul li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #d1d5db; /* text-gray-300 */
+  font-size: 1.125rem;
+  transition: background-color 0.5s ease;
+}
+
+.sidebar ul li:hover {
+  background-color: #f9fafb;
+  color: #000000;
+  border-radius: 3px;
+}
+
+.sidebar ul li.mt-9 {
+  margin-top: 2.25rem;
+}
+
+.sidebar ul li.bg-light-white {
+  background-color: #f9fafb; /* Cor de fundo do item ativo */
+}
+
+/* Ocultar o texto dos itens quando o menu estiver fechado */
+.sidebar ul li span.hidden {
+  display: none; /* Esconde completamente os nomes dos itens */
+}
+
+/* Responsividade: Ajustar a largura do sidebar */
+.sidebar.closed {
+  width: 8.6rem; /* w-20 */
+}
+
+.sidebar.open {
+  width: 15rem; /* w-72 */
+}
+
+/* Estilo da área principal */
+.main-content {
+  height: 100vh;
+  padding: 1.75rem;
+}
+
+.main-content h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
