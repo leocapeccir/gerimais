@@ -1,70 +1,74 @@
-
 .sidebar {
-  background-color: #1d66ba; 
-  height: 100vh; 
-  padding: 2rem 1.25rem 0; 
-  position: relative;
+  background-color: #1d66ba;
+  height: 100vh;
+  padding: 2rem 1.25rem 0;
+  position: fixed;
   transition: width 0.3s ease-in-out;
   box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
+  height: calc(100% - 15px);
+  margin: 9px;
+  border-radius: 30px;
 }
-
 
 .sidebar .control-icon {
   position: absolute;
   cursor: pointer;
   top: 2.25rem;
   background-color: #ffffff;
-  right: -0.75rem;
+  right: 1.5rem;
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 7px;
-  transition: transform 0.3s ease-in-out; 
+  transition: transform 0.3s ease-in-out;
 }
 
 .sidebar .control-icon.rotated {
-  transform: rotate(180deg); 
+  transform: rotate(180deg);
 }
 
 .sidebar .logo-container {
   display: flex;
-  gap: 1rem;
+
   align-items: center;
+  justify-content: center;
+  padding-left: 66px;
+  padding-top: 53px;
 }
 
 .logo-container {
-    width: 50px;
+  width: 50px;
 }
 
 .dashboard-title {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .sidebar .logo {
   cursor: pointer;
-  transition: transform 0.5s ease; 
+  transition: transform 0.5s ease;
   width: 70px;
   border-radius: 50%;
   border: 5px solid #c9c7c7;
 }
 .sidebar .logo.open {
-  transform: rotate(360deg); 
+  transform: rotate(360deg);
   width: 70px;
-    border-radius: 50%;
-
+  border-radius: 50%;
 }
 
 .sidebar h1 {
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 500;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    padding-left: 26px;
+
 }
 
 .sidebar h1.hidden {
   transform: scale(0);
   opacity: 0;
 }
-
 
 .sidebar ul {
   padding-top: 4.5rem;
@@ -76,18 +80,17 @@
   gap: 1rem;
   padding: 0.5rem;
   cursor: pointer;
-  color: #d1d5db; 
+  color: #d1d5db;
   font-size: 1.125rem;
   transition: background-color 0.5s ease;
 }
-
 
 .sidebar ul li.mt-9 {
   margin-top: 2.25rem;
 }
 
 .sidebar ul li.bg-light-white {
-  background-color: #f9fafb; 
+  background-color: #f9fafb;
 }
 
 .sidebar ul li span.hidden {
@@ -95,17 +98,19 @@
 }
 
 .sidebar.closed {
-  width: 7.3rem;
+  width: 5.3rem;
+  margin: 0;
+  border-radius: 0;
+  height: -webkit-fill-available;
 }
 
 .sidebar.open {
-  width: 13rem; 
+  width: 13rem;
 }
 
 .first-item {
-    font-weight: bold;
+  font-weight: bold;
 }
-
 
 .main-content {
   height: 100vh;
@@ -118,7 +123,5 @@
 }
 
 .menu-icon {
-    width: 2.1rem;
-    margin-left: 10px;
-
+  width: 2.1rem;
 }

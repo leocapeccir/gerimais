@@ -9,7 +9,6 @@ function SideBarMenu() {
     { title: "teste", icon: "src/assets/visitor-identification-svgrepo-com.svg" },
     { title: "Dashboard", icon: "src/assets/dashboard-svgrepo-com.svg" },
     { title: "teste", icon: "src/assets/visitor-identification-svgrepo-com.svg" },
-    
   ];
 
   return (
@@ -22,7 +21,7 @@ function SideBarMenu() {
           onClick={() => setOpen(!open)}
           alt="Toggle Sidebar"
         />
-        
+
         <div className="logo-container">
           <img
             src="src/assets/asilo.jpg"
@@ -33,17 +32,22 @@ function SideBarMenu() {
         </div>
         <ul>
           {menuItems.map((item, index) => (
-            <li key={index} className={`menu-item ${index === 0 ? 'first-item' : ""}`}>
-              {!open ? (
-                
+            <li key={index} className={`menu-item ${index === 0 ? "first-item" : ""}`}>
+              {open ? (
+                <div className="menu-content">
+                  <img
+                    src={item.icon}
+                    className="menu-icon"
+                    alt={item.title}
+                  />
+                  <span className="menu-title">{item.title}</span>
+                </div>
+              ) : (
                 <img
                   src={item.icon}
                   className="menu-icon"
                   alt={item.title}
                 />
-              ) : (
-                
-                <span>{item.title}</span>
               )}
             </li>
           ))}
