@@ -1,0 +1,39 @@
+.container-patient-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 21vw;
+    padding-top: 20px;
+    transition: transform 0.2s ease-in-out; /* Suaviza o efeito de zoom */
+  }
+  
+  .patient-photo {
+    border-radius: 50%; /* Deixa a foto redonda */
+    width: 125px; /* Define a largura da foto */
+    height: 125px; /* Define a altura da foto */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adiciona uma leve sombra */
+    transition: box-shadow 0.2s ease-in-out; /* Transição para o efeito hover */
+  }
+
+
+  
+  .patient-name {
+    margin-top: 10px; /* Espaço entre a foto e o nome */
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+  }
+
+  
+  .container-patient-box:hover {
+    transform: scale(1.10); /* Faz o zoom no container */
+    
+}
+
+.patient-photo:hover {
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra mais intensa no hover da imagem */
+          color: #ffffff;
+  }
+  

@@ -1,0 +1,49 @@
+#header {
+  align-items: center;
+  background-color: #f4f6f6;
+  border-top: 1px solid #e5e7e9;
+  display: flex;
+  font-size: 1.2rem;
+  justify-content: space-around;
+  width: 100vw;
+  margin-top: 22px;
+  position: fixed;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
+}
+
+.seta {
+  width: 18px;
+  cursor: pointer;
+}
+
+.profilePic {
+  width: 50px;
+  cursor: pointer;
+  
+}
+
+#pageName {
+  font-size: 1.4rem;
+  color: rgb(59,95,111);
+}
+
+.profileContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-style: italic;
+  margin-left: 40px;
+}
+
+.backPage {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-right: 468px;
+}
+
+.setaLeft {
+  width: 30px;
+  margin-left: 10px;
+}
+

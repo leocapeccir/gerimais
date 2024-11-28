@@ -1,0 +1,12 @@
+.footer-container {
+   align-items: center;
+   background-color: #f4f6f8;
+   border-top: 1px solid #e5e7e9;
+   display: flex;
+   font-size: .7rem;
+   height: 4vh;
+   justify-content: space-around;
+   width: 100vw;
+   background: rgb(59,95,111);
+background: linear-gradient(90deg, rgb(206, 210, 212) 0%, rgb(183, 188, 190) 100%);
+}

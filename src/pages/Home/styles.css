@@ -1,4 +1,37 @@
-.title-home {
-    background-color: red;
-    color: green;
+.container-home {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 94%;
+  background-color: rgb(208, 229, 238);
+}
+
+.title-patient {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  align-items: center;
+  background:#ffffff;
+  color: rgb(59, 95, 111);
+  justify-content: space-around;
+  border-radius: 30px;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
+}
+
+.patient-list {
+  display: flex;
+  flex-wrap: wrap; /* Permite o comportamento wrap */
+  padding: 7px;
+  justify-content: center; /* Centraliza os itens */
+  gap: 20px; /* Espaçamento entre os itens */
+  max-height: 80vh; /* Define a altura máxima da lista */
+  overflow-y: auto;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens se movam para a linha seguinte */
+  justify-content: space-evenly; /* Distribute os itens uniformemente */
+  align-items: center;
 }

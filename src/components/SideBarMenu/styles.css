@@ -1,21 +1,21 @@
 .sidebar {
-  background-color: #1d66ba;
-  height: 100vh;
+  background: rgb(59,95,111);
+background: linear-gradient(90deg, rgba(59,95,111,1) 0%, rgba(136,192,217,1) 100%);
   padding: 2rem 1.25rem 0;
   position: fixed;
+  z-index: 99999;
   transition: width 0.3s ease-in-out;
-  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
-  height: calc(100% - 15px);
-  margin: 9px;
-  border-radius: 30px;
+  box-shadow: 6px 0 45px #0000004d;
+  height: calc(94% - 15px);
+  margin: 18px 0 0 20px;
+    border-radius: 30px;
 }
 
 .sidebar .control-icon {
   position: absolute;
   cursor: pointer;
-  top: 2.25rem;
-  background-color: #ffffff;
-  right: 1.5rem;
+  top: 1.7rem;
+  right: 1.7rem;
   width: 1.75rem;
   height: 1.75rem;
   border-radius: 7px;
@@ -57,17 +57,17 @@
 }
 
 .sidebar h1 {
-    color: white;
-    font-size: 1.25rem;
-    font-weight: 500;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    padding-left: 26px;
-
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  padding-left: 6px;
 }
 
 .sidebar h1.hidden {
   transform: scale(0);
   opacity: 0;
+  padding-left: 26px;
 }
 
 .sidebar ul {
@@ -105,7 +105,7 @@
 }
 
 .sidebar.open {
-  width: 13rem;
+  width: 11.5rem;
 }
 
 .first-item {
@@ -113,7 +113,7 @@
 }
 
 .main-content {
-  height: 100vh;
+  height: 75vh;
   padding: 1.75rem;
 }
 
@@ -123,5 +123,29 @@
 }
 
 .menu-icon {
-  width: 2.1rem;
+  width: 1.5rem;
+}
+
+.menu-content {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.menu-title {
+  font-size: .79rem;
+  color: #ffffff;
+}
+
+.logo-empresa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+margin-left: 8px;
+}
+
+
+
+.logo-menu-marca {
+  width: 200px;
 }

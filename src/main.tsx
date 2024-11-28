@@ -1,14 +1,17 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import Home from './pages/Home'
-import './styles/globalStyles.css'
-import SideBarMenu from './components/SideBarMenu'
+// src/main.tsx
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom"; // Importa o BrowserRouter
+import App from "./App"; // Importa o App
+import "./styles/globalStyles.css"; // Estilos globais
 
+const rootElement = document.getElementById("root");
+const root = createRoot(rootElement!);
 
-
-createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <SideBarMenu/>
-    <Home/>
-  </StrictMode>,
-)
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>
+);
