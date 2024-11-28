@@ -112,6 +112,14 @@ background: linear-gradient(90deg, rgba(59,95,111,1) 0%, rgba(136,192,217,1) 100
   font-weight: bold;
 }
 
+.control-icon {
+  transition: transform 0.3s ease-in-out; /* Transição suave para a rotação */
+}
+
+.control-icon.rotate {
+  transform: rotate(180deg); /* Rota a imagem 180 graus quando o menu está aberto */
+}
+
 .main-content {
   height: 75vh;
   padding: 1.75rem;

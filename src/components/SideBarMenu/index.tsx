@@ -21,19 +21,10 @@ function SideBarMenu({ open, setOpen, onMenuClick }: SideBarMenuProps) {
         <img
           id="menu-icon"
           src="src/assets/menu-svgrepo-com (2).svg"
-          className={`control-icon ${!open && "open"}`}
+          className={`control-icon ${!open && "open"} ${open ? "rotate" : ""}`}  // Adicionando a rotação aqui
           onClick={() => setOpen(!open)} // Alterna estado ao clicar
           alt="Toggle Sidebar"
         />
-
-        <div className="logo-container">
-          <img
-            src="src/assets/asilo.jpg"
-            className={`logo ${open && "open"}`}
-            alt="Logo"
-          />
-          <h1 className={`text-white ${!open ? "hidden" : ""}`}>Nosso Lar</h1>
-        </div>
 
         <ul>
           {menuItems.map((item, index) => (
