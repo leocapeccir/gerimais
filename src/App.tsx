@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import Home from "./pages/Home";
-import PatientForm from "./pages/PatientForm";
+import PatientForm from "./components/PatientForm";
+import VisitorsCalendar from "./components/VisitorsCalendar";
 
 function App() {
   const [open, setOpen] = useState(true); // Estado controlado pelo App
@@ -25,7 +26,7 @@ function App() {
       <main className={`main-content ${open ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cadastrar-paciente" element={<PatientForm />} />
+          <Route path="/visitantes" element={<VisitorsCalendar />} />
         </Routes>
       </main>
       <Footer />

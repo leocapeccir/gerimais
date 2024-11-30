@@ -1,10 +1,4 @@
-.container-cadastrar-paciente {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 200px;
-}
+
 form.patient-form {
   background: rgb(59, 95, 111);
   background: linear-gradient(
@@ -99,10 +93,12 @@ form.patient-form button:hover {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
 }
 
 .open-modal-btn:hover {
   background-color: #355c73;
+  
 }
 
 .modal-overlay {
