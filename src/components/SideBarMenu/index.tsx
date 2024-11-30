@@ -11,6 +11,7 @@ function SideBarMenu({ open, setOpen, onMenuClick }: SideBarMenuProps) {
   const menuItems = [
     { title: "Dashboard", icon: "src/assets/dashboard-svgrepo-com.svg", path: "/" },
     { title: "Visitantes", icon: "src/assets/id-card-svgrepo-com (1).svg", path: "/visitantes" },
+    { title: "Cadastrar Paciente", icon: "src/assets/add-user-left-6-svgrepo-com.svg", path: "/cadastrar-paciente" },
     // { title: "Configurações", icon: "src/assets/id-card-svgrepo-com (1).svg", path: "/configuracoes" },
     // { title: "Ajuda", icon: "src/assets/id-card-svgrepo-com (1).svg", path: "/ajuda" },
   ];
