@@ -1,0 +1,29 @@
+.container-visitors {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: baseline;
+  justify-content: space-evenly;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.lista-visitantes {
+  width: 300px; /* Definindo uma largura fixa para a lista */
+  height: 70vh;
+  overflow-y: auto; /* Adiciona rolagem quando a lista crescer */
+  background-color: #f4f4f4;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container-calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+button {
+  margin: 10px;
+}

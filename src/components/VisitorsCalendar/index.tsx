@@ -1,144 +1,175 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { Button, TextField, List, ListItem, ListItemText, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-import { Dayjs } from 'dayjs';
-import { Button, TextField, Modal, Box } from '@mui/material';
+import dayjs from 'dayjs'; // Importa o dayjs
+import './styles.css';
 
-// Definindo os tipos de visitantes
+// Interface para os visitantes
 interface Visitor {
-  name: string;
   rg: string;
-  patientName: string;
+  name: string;
+  personVisiting: string;
+  date: string; // Data associada ao visitante
+  time: string; // Hora de chegada do visitante
 }
 
- function VisitorCalendar() {
-  const [selectedDate, setSelectedDate] = React.useState<Dayjs | null>(null);
-  const [visitors, setVisitors] = React.useState<Visitor[]>([]); // Lista de visitantes para a data selecionada
-  const [isModalOpen, setIsModalOpen] = React.useState(false); // Estado para controlar a abertura do modal
-  const [newVisitor, setNewVisitor] = React.useState<Visitor>({
-    name: '',
+function VisitorsCalendar() {
+  // Definindo a data de hoje como a data selecionada
+  const [selectedDate, setSelectedDate] = useState<dayjs.Dayjs>(dayjs()); // Data de hoje por padrão
+  const [visitors, setVisitors] = useState<Visitor[]>([]); // Lista de visitantes
+  const [openDialog, setOpenDialog] = useState(false); // Controle do Dialog
+  const [newVisitor, setNewVisitor] = useState<Visitor>({
     rg: '',
-    patientName: '',
-  });
+    name: '',
+    personVisiting: '',
+    date: '', // A data pode ser associada ao novo visitante
+    time: '', // Hora inicial
+  }); // Novo visitante
+  const [showCalendar, setShowCalendar] = useState(false); // Controle da exibição do calendário
 
-  // Função para selecionar uma data no calendário
-  const handleDateChange = (newDate: Dayjs | null) => {
-    setSelectedDate(newDate);
-    if (newDate) {
-      loadVisitorsForDate(newDate); // Carrega os visitantes para a data selecionada
-    }
+  // Função para abrir o Dialog de adicionar visitante
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
   };
 
-  // Função para carregar os visitantes para a data selecionada
-  const loadVisitorsForDate = (date: Dayjs) => {
-    // Lógica fictícia para carregar os visitantes de uma data
-    // Você pode substituir isso com uma chamada para API ou banco de dados
-    const mockVisitors: Visitor[] = [
-      { name: 'João da Silva', rg: '123456789', patientName: 'Maria Souza' },
-      { name: 'Ana Pereira', rg: '987654321', patientName: 'José Oliveira' },
-    ];
-    setVisitors(mockVisitors); // Atualiza a lista de visitantes
+  // Função para fechar o Dialog
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
   };
 
-  // Função para abrir o modal de cadastro de visitante
-  const openModal = () => setIsModalOpen(true);
+  // Função para adicionar um novo visitante
+  const handleAddVisitor = () => {
+    if (newVisitor.rg && newVisitor.name && newVisitor.personVisiting) {
+      const currentTime = dayjs().format('HH:mm'); // Hora atual
 
-  // Função para fechar o modal de cadastro
-  const closeModal = () => setIsModalOpen(false);
+      // Adiciona o visitante com a data de hoje e hora atual
+      setVisitors((prevVisitors) => [
+        { ...newVisitor, date: selectedDate.format('YYYY-MM-DD'), time: currentTime }, 
+        ...prevVisitors,
+      ]);
 
-  // Função para lidar com o envio do formulário de cadastro de visitante
-  const handleVisitorSubmit = () => {
-    if (newVisitor.name && newVisitor.rg && newVisitor.patientName) {
-      // Adiciona o novo visitante à lista
-      setVisitors([...visitors, newVisitor]);
-      setNewVisitor({ name: '', rg: '', patientName: '' }); // Reseta os campos
-      closeModal(); // Fecha o modal
+      // Limpa o formulário e fecha o Dialog
+      setNewVisitor({ rg: '', name: '', personVisiting: '', date: '', time: '' });
+      setOpenDialog(false);
     } else {
       alert('Por favor, preencha todos os campos.');
     }
   };
 
+  // Função para lidar com mudanças nos campos do formulário de visitante
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setNewVisitor((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Função para alternar a visibilidade do calendário
+  const toggleCalendar = () => {
+    setShowCalendar(!showCalendar);
+  };
+
+  // Filtrar os visitantes pela data selecionada
+  const filteredVisitors = visitors.filter(
+    (visitor) => visitor.date === selectedDate.format('YYYY-MM-DD')
+  );
+
+  // Função para lidar com a mudança de data no calendário
+  const handleDateChange = (newDate: dayjs.Dayjs | null) => {
+    if (newDate) {
+      setSelectedDate(newDate);
+    }
+  };
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <div>
-        {/* Calendário */}
-        <DateCalendar value={selectedDate} onChange={handleDateChange} />
+    <div className="container-visitors">
+      {/* Exibe o título "Visitantes" e a data atual ou filtrada */}
 
-        {/* Lista de Visitantes */}
-        {selectedDate && (
-          <div>
-            <h2>Visitantes para {selectedDate.format('DD/MM/YYYY')}</h2>
-            <ul>
-              {visitors.map((visitor, index) => (
-                <li key={index}>
-                  {visitor.name} - {visitor.rg} (Paciente: {visitor.patientName})
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+      {/* Lista de Visitantes */}
+      <div className="lista-visitantes">
+      <h3>
+          Visitantes
+          <span className="date-display">
+            {showCalendar ? ` - Data Filtrada: ${selectedDate.format('DD/MM/YYYY')}` : ` ${dayjs().format('DD/MM/YYYY')}`}
+          </span>
+        </h3>
+        <List>
+          {filteredVisitors.length === 0 ? (
+            <p>Nenhum visitante registrado para essa data.</p>
+          ) : (
+            filteredVisitors.map((visitor, index) => (
+              <ListItem key={index}>
+                <ListItemText
+                  primary={`RG: ${visitor.rg}`}
+                  secondary={`Nome: ${visitor.name} | Visitando: ${visitor.personVisiting} | Hora: ${visitor.time}`}
+                />
+              </ListItem>
+            ))
+          )}
+        </List>
+      </div>
 
-        {/* Botão para abrir o modal */}
-        <Button variant="contained" color="primary" onClick={openModal}>
-          Cadastrar Visitante
+      {/* Botão para exibir/ocultar o calendário e o filtro */}
+      <div className="container-calendar" style={{ flexDirection: showCalendar ? 'column' : 'row' }}>
+        <Button variant="contained" color="primary" onClick={handleOpenDialog}>
+          Adicionar Visitante
         </Button>
 
-        {/* Modal para cadastrar visitante */}
-        <Modal open={isModalOpen} onClose={closeModal}>
-          <Box
-            sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              bgcolor: 'background.paper',
-              borderRadius: '8px',
-              boxShadow: 24,
-              p: 4,
-            }}
-          >
-            <h2>Cadastro de Visitante</h2>
-            <TextField
-              label="Nome do Visitante"
-              fullWidth
-              value={newVisitor.name}
-              onChange={(e) =>
-                setNewVisitor({ ...newVisitor, name: e.target.value })
-              }
-              margin="normal"
+        <Button variant="outlined" onClick={toggleCalendar}>
+          {showCalendar ? 'Fechar Calendário' : 'Filtrar por Data'}
+        </Button>
+
+        {/* Exibe o calendário apenas quando showCalendar for true */}
+        {showCalendar && (
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DateCalendar 
+              value={selectedDate}
+              onChange={handleDateChange} // Atualiza a data ao selecionar uma nova
             />
-            <TextField
-              label="RG do Visitante"
-              fullWidth
-              value={newVisitor.rg}
-              onChange={(e) =>
-                setNewVisitor({ ...newVisitor, rg: e.target.value })
-              }
-              margin="normal"
-            />
-            <TextField
-              label="Nome do Paciente"
-              fullWidth
-              value={newVisitor.patientName}
-              onChange={(e) =>
-                setNewVisitor({ ...newVisitor, patientName: e.target.value })
-              }
-              margin="normal"
-            />
-            <div style={{ marginTop: '16px' }}>
-              <Button variant="contained" color="primary" onClick={handleVisitorSubmit}>
-                Salvar Visitante
-              </Button>
-              <Button variant="outlined" color="secondary" onClick={closeModal} style={{ marginLeft: '8px' }}>
-                Cancelar
-              </Button>
-            </div>
-          </Box>
-        </Modal>
+          </LocalizationProvider>
+        )}
       </div>
-    </LocalizationProvider>
+
+      {/* Dialog para adicionar um visitante */}
+      <Dialog open={openDialog} onClose={handleCloseDialog}>
+        <DialogTitle>Adicionar Visitante</DialogTitle>
+        <DialogContent>
+          <TextField
+            label="RG"
+            name="rg"
+            value={newVisitor.rg}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Nome"
+            name="name"
+            value={newVisitor.name}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+          <TextField
+            label="Pessoa que está visitando"
+            name="personVisiting"
+            value={newVisitor.personVisiting}
+            onChange={handleInputChange}
+            fullWidth
+            margin="normal"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="secondary">
+            Cancelar
+          </Button>
+          <Button onClick={handleAddVisitor} color="primary">
+            Adicionar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
   );
 }
 
-export default VisitorCalendar;
+export default VisitorsCalendar;
