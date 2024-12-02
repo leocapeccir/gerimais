@@ -25,6 +25,7 @@
     color: #333;
     text-align: center;
   }
+  
 
   
   .container-patient-box:hover {
@@ -33,7 +34,9 @@
 }
 
 .patient-photo:hover {
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra mais intensa no hover da imagem */
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 3.3); /* Sombra mais intensa no hover da imagem */
           color: #ffffff;
+          
+          
   }
   

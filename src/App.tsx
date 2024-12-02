@@ -6,7 +6,8 @@ import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import Footer from "./components/Footer";
 import { useState } from "react";
 import Home from "./pages/Home";
-import VisitorsCalendar from "./components/VisitorsCalendar";
+import VisitorsCalendar from "./pages/VisitorsCalendar";
+import EvolucaoPaciente from "./pages/EvolucaoPaciente";
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/visitantes" element={<VisitorsCalendar/>} />
+          <Route path="/evolucao/:id" element={<EvolucaoPaciente/>} />
         </Routes>
       </main>
       <Footer />

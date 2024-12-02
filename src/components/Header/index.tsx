@@ -1,5 +1,6 @@
 import React from "react";
 import "./styles.css";
+import { useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   open: boolean;
@@ -9,9 +10,17 @@ interface HeaderProps {
 function Header({ open, pageName }: HeaderProps) {
   const nome = "Carlos";
 
+  const navigate = useNavigate(); // Utiliza a função navigate do react-router-dom para navegar
+  const handleBackClick = () => {
+    navigate(-1); // Navega para a página anterior
+  };
+
+
   return (
     <div
       id="header"
+      onClick={handleBackClick} // Manipulador de clique
+
       style={{
         marginLeft: open ? "160px" : "0px", // Ajusta margem com base no estado
         transition: "margin-left 0.3s ease",

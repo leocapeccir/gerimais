@@ -1,14 +1,30 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
-export const PatientBox = () => {
+interface PatientProps {
+  patient: {
+    id: number;
+    name: string;
+    photo?: string; // Foto opcional
+  };
+}
+
+const PatientBox: React.FC<PatientProps> = ({ patient }) => {
+  const navigate = useNavigate(); // Hook para navegação programada
+
+  const handleClick = () => {
+    navigate(`/evolucao/${patient.id}`); // Redireciona para a tela de evolução com o ID do paciente
+  };
+
   return (
-    <div className="container-patient-box">
+    <div className="container-patient-box" onClick={handleClick}>
       <img
         className="patient-photo"
-        src="src/assets/velho.jpg" // Coloque o link da foto do paciente ou use um arquivo local
-        alt="Paciente"
+        src={patient.photo || "src/assets/velho.jpg"} // Foto padrão
+        alt={patient.name}
       />
-      <span className="patient-name">José Silva</span>
+      <span className="patient-name">{patient.name}</span>
     </div>
   );
 };

@@ -5,14 +5,29 @@
   height: 94%;
 }
 
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row-reverse;
+}
+
+.icon-search {
+  margin-left: 397px;
+  
+  border-radius: 50%;
+  width: 32px;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
+}
+
 .title-patient {
   font-size: 1rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 10px;
   align-items: center;
-  background:#ffffff;
-  color: rgb(59, 95, 111);
+  background: #ffffff;
+  color: rgb(0, 0, 0);
   justify-content: space-around;
   border-radius: 30px;
   box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
@@ -20,8 +35,10 @@
 
 .patient-list {
   display: flex;
+  box-shadow: 16px 0 35px rgba(0, 0, 0, 0.3);
   flex-wrap: wrap; /* Permite o comportamento wrap */
   padding: 7px;
+  background-color: #f7f7f4;
   justify-content: center; /* Centraliza os itens */
   gap: 20px; /* Espaçamento entre os itens */
   max-height: 80vh; /* Define a altura máxima da lista */

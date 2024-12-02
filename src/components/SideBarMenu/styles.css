@@ -1,6 +1,6 @@
 .sidebar {
-  background: rgb(59,95,111);
-background: linear-gradient(90deg, rgba(59,95,111,1) 0%, rgba(136,192,217,1) 100%);
+  background: rgb(0, 0, 0);
+background: #000;
   padding: 2rem 1.25rem 0;
   position: fixed;
   z-index: 99999;
@@ -140,10 +140,12 @@ background: linear-gradient(90deg, rgba(59,95,111,1) 0%, rgba(136,192,217,1) 100
   gap: 7px;
 }
 
+
 .menu-title {
   font-size: .79rem;
   color: #ffffff;
 }
+
 
 .logo-empresa {
   display: flex;
@@ -156,4 +158,10 @@ margin-left: 8px;
 
 .logo-menu-marca {
   width: 200px;
+}
+.sidebar ul li.menu-item:hover {
+ border: solid 2px #ffffff; /* Fundo branco no hover */
+  color: #000000; /* Texto preto no hover */
+  border-radius: 7px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
 }

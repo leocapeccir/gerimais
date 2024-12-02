@@ -65,6 +65,9 @@ form.patient-form textarea:focus {
   border-color: #ffffff;
 }
 
+.container-cadastrar-paciente {
+  
+}
 /* Botão */
 form.patient-form button {
   width: 100%;
@@ -87,8 +90,9 @@ form.patient-form button:hover {
 .open-modal-btn {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #467a94;
+  background-color: #1976d2;
   color: white;
+  font-weight: 400;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -97,7 +101,7 @@ form.patient-form button:hover {
 }
 
 .open-modal-btn:hover {
-  background-color: #355c73;
+  background-color: #47a4ff;
   
 }
 

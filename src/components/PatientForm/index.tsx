@@ -134,6 +134,8 @@ const PatientForm: React.FC = () => {
       <button className="open-modal-btn" onClick={() => setIsModalOpen(true)}>
         Cadastrar Paciente
       </button>
+      
+      
 
       {/* Modal */}
       {isModalOpen && (

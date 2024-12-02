@@ -90,7 +90,7 @@ function VisitorsCalendar() {
       <h3>
           Visitantes
           <span className="date-display">
-            {showCalendar ? ` - Data Filtrada: ${selectedDate.format('DD/MM/YYYY')}` : ` ${dayjs().format('DD/MM/YYYY')}`}
+            {showCalendar ? `  ${selectedDate.format('DD/MM/YYYY')}` : ` ${dayjs().format('DD/MM/YYYY')}`}
           </span>
         </h3>
         <List>
