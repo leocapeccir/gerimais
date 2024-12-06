@@ -1,43 +1,30 @@
-import './styles.css';
-import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  TextField,
-  FormControlLabel,
-  Button,
-  IconButton,
-  Divider,
-  RadioGroup,
-  Radio,
-  FormControl,
-  FormLabel,
-} from "@mui/material";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import React, { useState, useEffect } from "react";
+import './styles.css'
 
+// Definindo as interfaces
 interface Medicamento {
   nome: string;
 }
 
+interface SinaisVitais {
+  pressao: string;
+  glicemia: string;
+  medicamentos: Medicamento[];
+  novoMedicamento: string;
+}
+
 const EvolucaoPaciente: React.FC = () => {
-  const [medicamentos, setMedicamentos] = useState<Medicamento[]>([]);
-  const [novoMedicamento, setNovoMedicamento] = useState("");
   const [humores, setHumores] = useState<{ [key: string]: string }>({});
   const [refeicoes, setRefeicoes] = useState<{ [key: string]: string }>({});
+  const [sinaisVitais, setSinaisVitais] = useState<{ [key: string]: SinaisVitais }>({});
   const [data, setData] = useState<string>("");
+  const [observacoes, setObservacoes] = useState('');
 
-  const adicionarMedicamento = () => {
-    if (novoMedicamento) {
-      setMedicamentos([...medicamentos, { nome: novoMedicamento }]);
-      setNovoMedicamento("");
-    }
-  };
 
-  const removerMedicamento = (index: number) => {
-    const novosMedicamentos = medicamentos.filter((_, i) => i !== index);
-    setMedicamentos(novosMedicamentos);
-  };
+  useEffect(() => {
+    const hoje = new Date().toISOString().split("T")[0];
+    setData(hoje);
+  }, []);
 
   const handleRefeicaoChange = (refeicao: string, value: string) => {
     setRefeicoes({ ...refeicoes, [refeicao]: value });
@@ -47,127 +34,148 @@ const EvolucaoPaciente: React.FC = () => {
     setHumores({ ...humores, [refeicao]: value });
   };
 
-  return (
-    <Box p={3} sx={{ maxWidth: "800px", margin: "0 auto", backgroundColor: "#f9f9f9", borderRadius: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Evolução do Paciente
-      </Typography>
+  const handleSinaisVitaisChange = (
+    refeicao: string,
+    campo: keyof SinaisVitais,
+    valor: string | Medicamento[]
+  ) => {
+    setSinaisVitais({
+      ...sinaisVitais,
+      [refeicao]: {
+        ...sinaisVitais[refeicao],
+        [campo]: valor,
+      },
+    });
+  };
 
-      {/* Campo de data */}
-      <Box mb={3}>
-        <TextField
-          label="Data"
+  const adicionarMedicamento = (refeicao: string) => {
+    const vitais = sinaisVitais[refeicao] || { pressao: "", glicemia: "", medicamentos: [], novoMedicamento: "" };
+    if (vitais.novoMedicamento) {
+      const novosMedicamentos = [...(vitais.medicamentos || []), { nome: vitais.novoMedicamento }];
+      handleSinaisVitaisChange(refeicao, "medicamentos", novosMedicamentos);
+      handleSinaisVitaisChange(refeicao, "novoMedicamento", "");
+    }
+  };
+
+  const removerMedicamento = (refeicao: string, index: number) => {
+    const vitais = sinaisVitais[refeicao] || { pressao: "", glicemia: "", medicamentos: [] };
+    const novosMedicamentos = vitais.medicamentos.filter((_, i) => i !== index);
+    handleSinaisVitaisChange(refeicao, "medicamentos", novosMedicamentos);
+  };
+
+  return (
+    <>
+    <div className="container">
+      <h2>Evolução do Paciente</h2>
+
+      <div className="campo-data">
+        <label htmlFor="data">Data</label>
+        <input
           type="date"
-          fullWidth
+          id="data"
           value={data}
           onChange={(e) => setData(e.target.value)}
-          InputLabelProps={{
-            shrink: true,
-          }}
         />
-      </Box>
+      </div>
 
-      <Divider sx={{ marginY: 2 }} />
+      <hr />
 
-      {/* Refeições */}
-      <Typography variant="h5" gutterBottom>
-        Refeições
-      </Typography>
-      {["Café da manhã", "Lanche da manhã", "Almoço", "Lanche da tarde", "Jantar", "Ceia"].map((refeicao, index) => (
-        <Box key={index} mb={3}>
-          <Typography variant="h6">{refeicao}</Typography>
+      <h3>Refeições</h3>
+      <div className="refeicoes">
+        {["Café da manhã", "Lanche da manhã", "Almoço", "Lanche da tarde", "Jantar", "Ceia"].map((refeicao, index) => (
+          <div key={index} className="refeicao">
+            <h4>{refeicao}</h4>
 
-          {/* Consumo */}
-          <FormControl component="fieldset">
-            <FormLabel component="legend">Consumo</FormLabel>
-            <RadioGroup
-              row
-              value={refeicoes[refeicao] || ""}
-              onChange={(e) => handleRefeicaoChange(refeicao, e.target.value)}
-            >
-              <FormControlLabel value="comeuTudo" control={<Radio />} label="Comeu Tudo" />
-              <FormControlLabel value="repetiu" control={<Radio />} label="Repetiu" />
-              <FormControlLabel value="naoComeu" control={<Radio />} label="Não Comeu" />
-            </RadioGroup>
-          </FormControl>
+            <div className="campo-consumo">
+              <label>Consumo</label>
+              <div className="radio-group">
+                {["comeuTudo", "repetiu", "naoComeu"].map((value) => (
+                  <label key={value}>
+                    <input
+                      type="radio"
+                      name={`consumo-${refeicao}`}
+                      value={value}
+                      checked={refeicoes[refeicao] === value}
+                      onChange={(e) => handleRefeicaoChange(refeicao, e.target.value)}
+                    />
+                    {value === "comeuTudo" ? "Comeu Tudo" : value === "repetiu" ? "Repetiu" : "Não Comeu"}
+                  </label>
+                ))}
+              </div>
+            </div>
 
-          {/* Humor */}
-          <FormControl component="fieldset" sx={{ marginTop: 1 }}>
-            <FormLabel component="legend">Humor</FormLabel>
-            <RadioGroup
-              row
-              value={humores[refeicao] || ""}
-              onChange={(e) => handleHumorChange(refeicao, e.target.value)}
-            >
-              <FormControlLabel value="triste" control={<Radio />} label="Triste" />
-              <FormControlLabel value="bravo" control={<Radio />} label="Bravo" />
-              <FormControlLabel value="indiferente" control={<Radio />} label="Indiferente" />
-              <FormControlLabel value="alegre" control={<Radio />} label="Alegre" />
-            </RadioGroup>
-          </FormControl>
-        </Box>
-      ))}
+            <div className="campo-humor">
+              <label>Humor</label>
+              <div className="radio-group">
+                {["triste", "bravo", "indiferente", "alegre"].map((value) => (
+                  <label key={value}>
+                    <input
+                      type="radio"
+                      name={`humor-${refeicao}`}
+                      value={value}
+                      checked={humores[refeicao] === value}
+                      onChange={(e) => handleHumorChange(refeicao, e.target.value)}
+                    />
+                    {value.charAt(0).toUpperCase() + value.slice(1)}
+                  </label>
+                ))}
+              </div>
+            </div>
 
-      <Divider sx={{ marginY: 2 }} />
+            <div className="campo-sinais-vitais">
+              <label>Pressão</label>
+              <input
+                type="text"
+                placeholder="Ex.: 12/8"
+                value={sinaisVitais[refeicao]?.pressao || ""}
+                onChange={(e) => handleSinaisVitaisChange(refeicao, "pressao", e.target.value)}
+              />
+              <label>Glicemia (mg/dL)</label>
+              <input
+                type="text"
+                value={sinaisVitais[refeicao]?.glicemia || ""}
+                onChange={(e) => handleSinaisVitaisChange(refeicao, "glicemia", e.target.value)}
+              />
+            </div>
 
-      {/* Pressão e Glicemia */}
-      <Typography variant="h5" gutterBottom>
-        Sinais Vitais
-      </Typography>
-      <Box mb={3}>
-        <TextField
-          label="Pressão (Ex.: 12/8)"
-          fullWidth
-          sx={{ marginBottom: 2 }}
-        />
-        <TextField
-          label="Glicemia (mg/dL)"
-          fullWidth
-        />
-      </Box>
-
-      <Divider sx={{ marginY: 2 }} />
-
-      {/* Medicamentos */}
-      <Typography variant="h5" gutterBottom>
-        Medicamentos
-      </Typography>
-      <Box mb={3}>
-        <Box display="flex" gap={2} alignItems="center" mb={2}>
-          <TextField
-            label="Adicionar Medicamento"
-            value={novoMedicamento}
-            onChange={(e) => setNovoMedicamento(e.target.value)}
-            fullWidth
-          />
-          <IconButton color="primary" onClick={adicionarMedicamento}>
-            <AddCircleOutlineIcon />
-          </IconButton>
-        </Box>
-
-        {medicamentos.map((medicamento, index) => (
-          <Box
-            key={index}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            sx={{ backgroundColor: "#fff", padding: 1, borderRadius: 1, marginBottom: 1 }}
-          >
-            <Typography>{medicamento.nome}</Typography>
-            <IconButton color="error" onClick={() => removerMedicamento(index)}>
-              <DeleteOutlineIcon />
-            </IconButton>
-          </Box>
+            <div className="campo-medicamentos">
+              <label>Adicionar Medicamento</label>
+              <div className="campo-adicionar">
+                <input
+                  type="text"
+                  value={sinaisVitais[refeicao]?.novoMedicamento || ""}
+                  onChange={(e) => handleSinaisVitaisChange(refeicao, "novoMedicamento", e.target.value)}
+                />
+                <button onClick={() => adicionarMedicamento(refeicao)}>Adicionar</button>
+              </div>
+              <div className="lista-medicamentos">
+                {sinaisVitais[refeicao]?.medicamentos?.map((medicamento, i) => (
+                  <div key={i} className="medicamento">
+                    <span>{medicamento.nome}</span>
+                    <button onClick={() => removerMedicamento(refeicao, i)}>Remover</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         ))}
-      </Box>
+      </div>
 
-      <Divider sx={{ marginY: 2 }} />
+      <hr />
+      <div className="campo-observacoes">
+  <label htmlFor="observacoes">Observações do Dia</label>
+  <textarea
+    id="observacoes"
+    value={observacoes}
+    onChange={(e) => setObservacoes(e.target.value)}
+    placeholder="Digite suas observações"
+  />
+</div>
 
-      {/* Botão de salvar */}
-      <Button variant="contained" color="primary" fullWidth>
-        Salvar Rotina
-      </Button>
-    </Box>
+
+    </div>
+      <button className="btn-salvar">Salvar Rotina</button>
+      </>
   );
 };
 

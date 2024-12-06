@@ -1,6 +1,5 @@
 .sidebar {
-  background: rgb(0, 0, 0);
-background: #000;
+  background: #5ac55e;
   padding: 2rem 1.25rem 0;
   position: fixed;
   z-index: 99999;
